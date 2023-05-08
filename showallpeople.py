@@ -5,7 +5,7 @@ class ShowAllBd():
     def __init__(self):
         # Создаем окно
         self.root = tk.Toplevel()
-        self.root.title("Данные из таблицы people")
+        self.root.title("Пользователи")
 
         # Подключаемся к базе данных
         db = mysql.connect(
@@ -31,7 +31,7 @@ class ShowAllBd():
 
         # Выводим заголовки в первую строку таблицы
         for col, header in enumerate(headers):
-            label = tk.Label(self.root, text=header, font=("Helvetica", 10, "bold"), relief=tk.RIDGE, padx=5, pady=5)
+            label = tk.Label(self.root, text=header, font=("Times New Roman", 12, "bold"), relief=tk.RIDGE, padx=5, pady=5)
             label.grid(row=row, column=col, sticky="ew")
         row += 1
 
