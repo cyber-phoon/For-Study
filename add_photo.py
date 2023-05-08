@@ -1,5 +1,4 @@
 import cv2
-#wefwe
 class Add_Photo:
     def __init__(self, filename):
         self.cap = cv2.VideoCapture(0)
@@ -10,6 +9,3 @@ class Add_Photo:
 	        ret, frame = self.cap.read()
 	        cv2.imwrite(filename, frame)
 	        self.cap.release()
-
-    
-
