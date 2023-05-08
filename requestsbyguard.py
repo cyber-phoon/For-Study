@@ -32,14 +32,14 @@ class RequestGU():
         request_label = tk.Label(self.root, text="Запрос:")
         request_label.pack()
         self.request_var = tk.StringVar()
-        self.request_combobox = ttk.Combobox(self.root, textvariable=self.request_var, values=self.valid_requests)
+        self.request_combobox = ttk.Combobox(self.root, textvariable=self.request_var, values=self.valid_requests, state="readonly")
         self.request_combobox.pack()
         self.request_combobox.bind("<<ComboboxSelected>>", self.update_actions)
 
         action_label = tk.Label(self.root, text="Действие:")
         action_label.pack()
         self.action_var = tk.StringVar()
-        self.action_combobox = ttk.Combobox(self.root, textvariable=self.action_var, values=[])
+        self.action_combobox = ttk.Combobox(self.root, textvariable=self.action_var, values=[], state="readonly")
         self.action_combobox.pack()
 
         comment_label = tk.Label(self.root, text="Комментарий:")
