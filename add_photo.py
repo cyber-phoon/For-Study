@@ -1,5 +1,5 @@
 import cv2
-
+#wefwe
 class Add_Photo:
     def __init__(self, filename):
         self.cap = cv2.VideoCapture(0)
