@@ -4,6 +4,7 @@ import cv2
 import os
 from datetime import datetime
 import time
+import dlib
 import mysql.connector
 
 def connect_to_db():
@@ -27,11 +28,19 @@ def findEncodingsFromDB():
     for row in rows:
         first_name, last_name, patronymic, photo = row
         img = cv2.imdecode(np.asarray(bytearray(photo), dtype=np.uint8), cv2.IMREAD_COLOR)
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        encode = face_recognition.face_encodings(img)[0]
-        encodeList.append(encode)
-        name = f"{first_name} {last_name} {patronymic}"
-        namesList.append(name)
+
+        if img is not None:  # Проверка на пустое изображение
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+            try:
+                encode = face_recognition.face_encodings(img)[0]
+                encodeList.append(encode)
+                name = f"{first_name} {last_name} {patronymic}"
+                namesList.append(name)
+                print(f"Найдено лицо на фото {name}")
+            except IndexError:
+                print(f"Ошибка: на фото {name} не найдено лицо")
+        else:
+            print(f"Пустое изображение для {first_name} {last_name} {patronymic}")
 
     mydb.close()
     return encodeList, namesList

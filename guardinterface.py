@@ -4,6 +4,7 @@ import datetime
 import csv
 import subprocess
 from tkinter import simpledialog
+from requestsbyguard import RequestGU
 
 class GuardWindow():
     
@@ -19,6 +20,8 @@ class GuardWindow():
 
         self.button = tk.Button(self.master, text='Запуск', width=20, borderwidth=3, command=self.open_file)
         self.button.grid(row=2, column=1, padx=10, pady=10, sticky='se')
+        self.qweasd = tk.Button(self.master, text='Добавить запрос', width=20, borderwidth=3, command=self.guardGU)
+        self.qweasd.grid()
 
         self.clock_label = tk.Label(self.master, font=('Arial', 18), bg='white', fg='black')
         self.clock_label.grid(row=1, column=1, padx=10, pady=10, sticky='ne')
@@ -35,7 +38,7 @@ class GuardWindow():
         self.text_widget.grid_rowconfigure(0, weight=1)
         self.text_widget.grid_columnconfigure(0, weight=1)
 
-        self.update_attendance(self.text_widget)
+        #self.update_attendance(self.text_widget)
 
         self.quit_button = tk.Button(self.master, text='Выход', width=20, borderwidth=3, command=self.quit_app)
         self.quit_button.grid(row=2, column=0, sticky=tk.W, padx=10, pady=10)
@@ -49,11 +52,16 @@ class GuardWindow():
         self.clock_label.config(text=now.strftime('%H:%M:%S'))
         self.master.after(1000, self.update_clock)
 
-    def update_attendance(self, text_widget):
-        with open('recognition.log', 'r') as csv_file:
-            text = csv_file.read()
-        self.text_widget.delete('1.0', tk.END)
-        self.text_widget.insert(tk.END, text)
+
+    def guardGU(self):
+        guardGU = RequestGU()
+        guardGU.root.mainloop()
+
+    #def update_attendance(self, text_widget):
+        #with open('recognition.log', 'r') as csv_file:
+            #text = csv_file.read()
+        #self.text_widget.delete('1.0', tk.END)
+        #self.text_widget.insert(tk.END, text)
 
 
 

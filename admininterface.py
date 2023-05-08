@@ -5,8 +5,8 @@ import cv2
 from add_person_in_users import Add_Persons_Window
 from add_users_of_program import Users_Of_Program_Window
 from DownloadWindow import Download_Window
-from idcheck import IdCheck
-from showallbd import ShowAll
+from edit_user import Edit_Windows
+from RequestWindowAD import RequestWindowAD
 
 
 class AdminWindow():
@@ -23,9 +23,9 @@ class AdminWindow():
         self.add_person.pack()
         self.download = tk.Button(self.master, text="Отчет рабочего времени", command=self.download_window)
         self.download.pack()
-        self.download = tk.Button(self.master, text="Изменение данных", command=self.update_data)
+        self.download = tk.Button(self.master, text="Изменение данных", command=Edit_Windows)
         self.download.pack()
-        self.show_all_button = tk.Button(self.master, text="Просмотреть всех клиентов", command=self.showallbd)
+        self.show_all_button = tk.Button(self.master, text="Запросы", command=self.request_window)
         self.show_all_button.pack()
 
     def add_photo(self):
@@ -41,13 +41,13 @@ class AdminWindow():
         download_window = Download_Window()
         download_window.run()
 
-    def update_data(self):
-        idcheck = IdCheck()
-        idcheck.root.mainloop()
+    def request_window(self):
+        RequestWindow = RequestWindowAD()
+        RequestWindow.root.mainloop()
 
-    def showallbd(self):
-        showallbd = ShowAll()
-        showallbd.root.mainloop()
+    def edit_user(self):
+        edit_user = Edit_Windows()
+        edit_user.run()
 
 
 #update_data = UpdateData()
