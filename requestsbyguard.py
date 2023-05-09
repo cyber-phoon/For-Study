@@ -59,20 +59,6 @@ class RequestGU():
         self.show_button.pack()
         self.show_button.pack_forget()
 
-        # создаем кнопку для отображения людей
-        self.make_photo = tk.Button(self.root, text="Сделать фотографию")
-
-        # скрываем кнопку по умолчанию
-        self.make_photo.pack()
-        self.make_photo.pack_forget()
-
-        # создаем кнопку для отображения людей
-        self.delete_user = tk.Button(self.root, text="Удаление пользователя")
-
-        # скрываем кнопку по умолчанию
-        self.delete_user.pack()
-        self.delete_user.pack_forget()
-
         # создаем виджет Treeview
         self.treeview = ttk.Treeview(self.root, columns=("request", "action", "comment", "acceptance_status", "completion_status"))
 
@@ -122,14 +108,6 @@ class RequestGU():
             self.show_button.pack()
         else:
             self.show_button.pack_forget()
-        if selected_action == "Обновление фотографии":
-            self.make_photo.pack()
-        else:
-            self.make_photo.pack_forget()
-        if selected_action == "Удаление пользователя":
-            self.delete_user.pack()
-        else:
-            self.delete_user.pack_forget()
 
     # функция для добавления запроса в базу данных
     def add_request(self):
