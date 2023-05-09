@@ -98,13 +98,14 @@ class RequestGU():
             if selected_request in self.valid_actions:
                 self.action_combobox.config(values=self.valid_actions[selected_request])
                 self.action_combobox.set('')
+                self.show_button.pack_forget()
             else:
                 self.action_combobox.config(values=[])
                 self.show_button.pack_forget()
 
     def update_fio(self, event=None):
         selected_action = self.action_combobox.get()
-        if selected_action == "Изменение ФИО":
+        if selected_action in ("Изменение ФИО", "Удаление пользователя", "Обновление фотографии"):
             self.show_button.pack()
         else:
             self.show_button.pack_forget()
