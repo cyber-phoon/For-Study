@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 import mysql.connector
-
+from showallpeople import ShowAllBd
 
 class RequestGU():
     def __init__(self):
@@ -41,6 +41,7 @@ class RequestGU():
         self.action_var = tk.StringVar()
         self.action_combobox = ttk.Combobox(self.root, textvariable=self.action_var, values=[], state="readonly")
         self.action_combobox.pack()
+        self.action_combobox.bind("<<ComboboxSelected>>", self.update_fio)
 
         comment_label = tk.Label(self.root, text="Комментарий:")
         comment_label.pack()
@@ -50,6 +51,13 @@ class RequestGU():
         # создаем кнопку для добавления запроса
         self.add_button = tk.Button(self.root, text="Добавить", command=self.add_request)
         self.add_button.pack()
+
+        # создаем кнопку для отображения людей
+        self.show_button = tk.Button(self.root, text="Показать людей", command=self.show_all_people)
+
+        # скрываем кнопку по умолчанию
+        self.show_button.pack()
+        self.show_button.pack_forget()
 
         # создаем виджет Treeview
         self.treeview = ttk.Treeview(self.root, columns=("request", "action", "comment", "acceptance_status", "completion_status"))
@@ -92,6 +100,14 @@ class RequestGU():
                 self.action_combobox.set('')
             else:
                 self.action_combobox.config(values=[])
+                self.show_button.pack_forget()
+
+    def update_fio(self, event=None):
+        selected_action = self.action_combobox.get()
+        if selected_action == "Изменение ФИО":
+            self.show_button.pack(side=tk.LEFT, padx=5)
+        else:
+            self.show_button.pack_forget()
 
     # функция для добавления запроса в базу данных
     def add_request(self):
@@ -122,3 +138,7 @@ class RequestGU():
                 self.treeview.insert("", tk.END, values=row)
         else:
             tk.messagebox.showerror("Ошибка", "Поля запроса и действия не могут быть пустыми.")
+
+    def show_all_people(self):
+        show_all_people = ShowAllBd()
+        show_all_people.root.mainloop()

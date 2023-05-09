@@ -7,7 +7,7 @@ from add_users_of_program import Users_Of_Program_Window
 from DownloadWindow import Download_Window
 from edit_user import Edit_Windows
 from RequestWindowAD import RequestWindowAD
-from showallpeople import ShowAllBd
+#from showallpeople import ShowAllBd
 
 
 class AdminWindow():
@@ -28,8 +28,8 @@ class AdminWindow():
         self.download.pack()
         self.show_all_button = tk.Button(self.master, text="Запросы", command=self.request_window)
         self.show_all_button.pack()
-        self.show_all_button = tk.Button(self.master, text="Показать пользователей", command=self.show_all_people)
-        self.show_all_button.pack()
+        #self.show_all_button = tk.Button(self.master, text="Показать пользователей")
+        #self.show_all_button.pack()
 
     def add_photo(self):
         add_users = Users_Of_Program_Window()
@@ -51,10 +51,6 @@ class AdminWindow():
     def edit_user(self):
         edit_user = Edit_Windows()
         edit_user.run()
-
-    def show_all_people(self):
-        show_all_people = ShowAllBd()
-        show_all_people.root.mainloop()
 
 
 #update_data = UpdateData()
