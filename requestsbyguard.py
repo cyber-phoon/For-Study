@@ -148,6 +148,7 @@ class RequestGU():
                             (request, action, fio, comment))
             self.conn.commit()
             tk.messagebox.showinfo("Успех", "Запрос успешно добавлен в базу данных!")
+            self.people_window.destroy()
             self.show_button.pack_forget()
             self.fio_label.pack_forget()
             self.entry_fio_label.pack_forget()
@@ -170,8 +171,8 @@ class RequestGU():
             tk.messagebox.showerror("Ошибка", "Поля запроса и действия не могут быть пустыми.")
 
     def show_all_people(self):
-        self.root = tk.Toplevel()
-        self.root.title("Пользователи")
+        self.people_window = tk.Toplevel()
+        self.people_window.title("Пользователи")
 
         # создаем соединение с базой данных и курсор
         self.conn = mysql.connector.connect(
@@ -195,14 +196,14 @@ class RequestGU():
 
         # Выводим заголовки в первую строку таблицы
         for col, header in enumerate(headers):
-            label = tk.Label(self.root, text=header, font=("Times New Roman", 12, "bold"), relief=tk.RIDGE, padx=5,
+            label = tk.Label(self.people_window, text=header, font=("Times New Roman", 12, "bold"), relief=tk.RIDGE, padx=5,
                              pady=5)
             label.grid(row=row, column=col, sticky="ew")
         row += 1
 
         for i, record in enumerate(data):
             for j, value in enumerate(record):
-                label = tk.Label(self.root, text=value, relief=tk.RIDGE, padx=5, pady=5)
+                label = tk.Label(self.people_window, text=value, relief=tk.RIDGE, padx=5, pady=5)
                 label.grid(row=row, column=j, sticky="ew")
                 label.bind("<Double-Button-1>",
                            lambda event, row=i, values=record[:3], column=j: self.populate_fio_entry(row, values,
@@ -210,13 +211,13 @@ class RequestGU():
             row += 1
 
         # Задаем размеры окна и выводим его посередине сверху
-        self.root.geometry("500x500")
-        self.root.update_idletasks()
-        width = self.root.winfo_width()
-        height = self.root.winfo_height()
-        x = (self.root.winfo_screenwidth() // 2) - (width // 2)
+        self.people_window.geometry("500x500")
+        self.people_window.update_idletasks()
+        width = self.people_window.winfo_width()
+        height = self.people_window.winfo_height()
+        x = (self.people_window.winfo_screenwidth() // 2) - (width // 2)
         y = 50
-        self.root.geometry('{}x{}+{}+{}'.format(width, height, x, y))
+        self.people_window.geometry('{}x{}+{}+{}'.format(width, height, x, y))
 
         # Закрываем соединение с базой данных
         self.conn.close()
