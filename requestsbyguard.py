@@ -49,11 +49,11 @@ class RequestGU():
         self.comment_entry = tk.Entry(self.root)
         self.comment_entry.pack()
 
+        self.fio_label = tk.Label(self.root, text="ФИО:")
         self.entry_fio_label = tk.Entry(self.root)
+        self.fio_label.pack()
         self.entry_fio_label.pack()
         self.entry_fio_label.pack_forget()
-        self.fio_label = tk.Label(self.root, text="ФИО:")
-        self.fio_label.pack()
         self.fio_label.pack_forget()
 
         # создаем кнопку для добавления запроса
