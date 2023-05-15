@@ -97,13 +97,15 @@ class RequestWindowAD():
             self.cursor.execute(query, values)
             self.conn.commit()
             self.update_data()
+            self.completed_status.set('')
+            self.acceptance_status.set('')
 
     def open_edit_window(self, fio):
         if self.edit_window is None:
             if fio != []:
                 self.edit_window = Edit_Windows(fio)
             else:
-                messagebox.showerror("error", "qwe")
+                messagebox.showerror("Ошибка", "Отсутствует ФИО")
         #self.edit_window.set_fio(self.selected_data)  # Передача выбранных данных
 
 
