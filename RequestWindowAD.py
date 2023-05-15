@@ -58,7 +58,7 @@ class RequestWindowAD():
         self.cursor = self.conn.cursor()
         self.load_data()
         self.root.after(5000, self.update_data)
-        self.treeview.bind("<<TreeviewSelect>>", self.add_acceptance_button_clicked)
+        self.treeview.bind("<<Button-1>>", self.add_acceptance_button_clicked)
         self.treeview.bind("<Double-Button-1>", self.treeview_select)
     def update_data(self):
         self.treeview.delete(*self.treeview.get_children())
