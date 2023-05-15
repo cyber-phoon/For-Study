@@ -10,7 +10,7 @@ import tempfile
 
 class Edit_Windows():
 
-    def __init__(self):
+    def __init__(self, fio):
         # создаем главное окно приложения
         root = tk.Tk()
         root.title("Проверка данных")
@@ -31,6 +31,10 @@ class Edit_Windows():
 
         # создаем кнопку для проверки введенных данных
         tk.Button(root, text="Проверить данные", command=self.check_data).grid(row=3, column=0, columnspan=2)
+
+        self.entry_first_name.insert(0, fio[0])
+        self.entry_last_name.insert(0, fio[1])
+        self.entry_patronymic.insert(0, fio[2])
 
         root.mainloop()
 
@@ -172,6 +176,8 @@ class Edit_Windows():
             cnx.close()
             # выводим сообщение об успешном сохранении изменений
             tk.messagebox.showinfo("Успех", "Данные успешно сохранены")
+
+
 
     #def editwindow(self):
         #editwindow = Edit_Windows()
