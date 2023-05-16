@@ -27,26 +27,27 @@ class RequestGU():
 
         # создаем окно tkinter
         self.root = tk.Tk()
+        self.root.geometry('1500x500')
         self.root.title("Добавление запроса")
 
         # создаем метки и выпадающие списки для запроса и действия
         request_label = tk.Label(self.root, text="Запрос:")
         request_label.pack()
         self.request_var = tk.StringVar()
-        self.request_combobox = ttk.Combobox(self.root, textvariable=self.request_var, values=self.valid_requests, state="readonly")
+        self.request_combobox = ttk.Combobox(self.root, textvariable=self.request_var, values=self.valid_requests, state="readonly", width=40)
         self.request_combobox.pack()
         self.request_combobox.bind("<<ComboboxSelected>>", self.update_actions)
 
         action_label = tk.Label(self.root, text="Действие:")
         action_label.pack()
         self.action_var = tk.StringVar()
-        self.action_combobox = ttk.Combobox(self.root, textvariable=self.action_var, values=[], state="readonly")
+        self.action_combobox = ttk.Combobox(self.root, textvariable=self.action_var, values=[], state="readonly", width=30)
         self.action_combobox.pack()
         self.action_combobox.bind("<<ComboboxSelected>>", self.update_fio)
 
         comment_label = tk.Label(self.root, text="Комментарий:")
         comment_label.pack()
-        self.comment_entry = tk.Entry(self.root)
+        self.comment_entry = tk.Entry(self.root, width=20)
         self.comment_entry.pack()
 
         self.fio_label = tk.Label(self.root, text="ФИО:")
