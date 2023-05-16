@@ -5,7 +5,7 @@ import cv2
 from add_person_in_users import Add_Persons_Window
 from add_users_of_program import Users_Of_Program_Window
 from DownloadWindow import Download_Window
-from edit_user import Edit_Windows
+#from edit_user import Edit_Windows
 from RequestWindowAD import RequestWindowAD
 #from showallpeople import ShowAllBd
 
@@ -15,21 +15,28 @@ class AdminWindow():
         self.master = master
         self.master.title("Администрирование")
         self.master.geometry('810x430')
+        self.master.resizable(False, False)
         self.db_work = db_work
-        #self.error_button = tk.Button(self.master, text="Просмотр ошибок")
-        #self.error_button.pack()
-        self.photo_button = tk.Button(self.master, text="Создание учетной записи", command=self.add_photo)
-        self.photo_button.pack()
-        self.add_person = tk.Button(self.master, text="Создание пропуска", command=self.create_person_window)
-        self.add_person.pack()
-        self.download = tk.Button(self.master, text="Отчет рабочего времени", command=self.download_window)
-        self.download.pack()
-        self.download = tk.Button(self.master, text="Изменение данных", command=Edit_Windows)
-        self.download.pack()
-        self.show_all_button = tk.Button(self.master, text="Запросы", command=self.request_window)
-        self.show_all_button.pack()
-        #self.show_all_button = tk.Button(self.master, text="Показать пользователей")
-        #self.show_all_button.pack()
+        # self.error_button = tk.Button(self.master, text="Просмотр ошибок")
+        # self.error_button.pack(anchor="w")
+
+        self.photo_button = tk.Button(self.master, text="Создание учетной записи", command=self.add_photo, width=20)
+        self.photo_button.pack(anchor="w", pady=(100, 5))
+
+        self.add_person = tk.Button(self.master, text="Создание пропуска", command=self.create_person_window, width=20)
+        self.add_person.pack(anchor="w", pady=5)
+
+        self.download = tk.Button(self.master, text="Отчет рабочего времени", command=self.download_window, width=20)
+        self.download.pack(anchor="w", pady=5)
+
+        # self.download = tk.Button(self.master, text="Изменение данных", command=Edit_Windows)
+        # self.download.pack(anchor="w")
+
+        self.show_all_button = tk.Button(self.master, text="Запросы", command=self.request_window, width=20)
+        self.show_all_button.pack(anchor="w", pady=5)
+
+        # self.show_all_button = tk.Button(self.master, text="Показать пользователей")
+        # self.show_all_button.pack(anchor="w")
 
     def add_photo(self):
         add_users = Users_Of_Program_Window()
@@ -48,9 +55,9 @@ class AdminWindow():
         RequestWindow = RequestWindowAD()
         RequestWindow.root.mainloop()
 
-    def edit_user(self):
-        edit_user = Edit_Windows()
-        edit_user.run()
+    #def edit_user(self):
+        #edit_user = Edit_Windows()
+        #edit_user.run()
 
 
 #update_data = UpdateData()
