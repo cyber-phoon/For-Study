@@ -12,7 +12,7 @@ class RequestWindowAD():
         self.edit_window = None
         self.selected_fio = ""
         self.selected_data = None
-        self.root.title("Добавить запрос")
+        self.root.title("Редактирование запроса")
         self.root.geometry('1500x600')
         #self.root.resizable(False, False)
 
@@ -24,8 +24,11 @@ class RequestWindowAD():
         self.completed_status = ttk.Combobox(self.root, values=['Выполнена', 'Завершена'], state="readonly")
         self.completed_status.grid(row=2, column=1, padx=10, pady=10, sticky=W)
 
-        add_button = Button(self.root, text='Добавить', command=lambda: self.add_acceptance_button_clicked(), font=bold_font, bg="#87cefa", fg="black", width=22)
-        add_button.grid(row=3, column=0, columnspan=2, pady=10, sticky=N)
+        self.add_button = Button(self.root, text='Добавить', command=lambda: self.add_acceptance_button_clicked(), font=bold_font, bg="#87cefa", fg="black", width=22)
+        self.add_button.grid(row=3, column=0, columnspan=2, pady=10, sticky=N)
+        self.add_button.bind("<Enter>", self.on_enter)
+        self.add_button.bind("<Leave>", self.on_leave)
+
 
         self.treeview = ttk.Treeview(self.root)
         self.treeview['columns'] = ('id', 'request','action','fio', 'comment', 'acceptance_status', 'completion_status')
@@ -62,6 +65,12 @@ class RequestWindowAD():
         self.root.after(5000, self.update_data)
         self.treeview.bind("<<Button-1>>", self.add_acceptance_button_clicked)
         self.treeview.bind("<Double-Button-1>", self.treeview_select)
+
+    def on_enter(self, event):
+        event.widget.config(bg="white", fg="#87cefa")
+
+    def on_leave(self, event):
+        event.widget.config(bg="#87cefa", fg="black")
     def update_data(self):
         self.treeview.delete(*self.treeview.get_children())
         self.load_data()
