@@ -12,31 +12,33 @@ class Edit_Windows():
 
     def __init__(self, fio):
         # создаем главное окно приложения
-        root = tk.Tk()
-        root.title("Проверка данных")
-        root.geometry('270x100')
-        root.resizable(False,False)
+        self.root = tk.Tk()
+        bold_font = ("Tahoma", 10, "bold")
+        self.root.configure(bg="light blue")
+        self.root.title("Проверка данных")
+        self.root.geometry('270x100')
+        self.root.resizable(False,False)
 
         # создаем поля для ввода ФИО
-        tk.Label(root, text="Имя:").grid(row=0, column=0)
-        self.entry_first_name = tk.Entry(root)
+        tk.Label(self.root, text="Имя:", font=bold_font, bg="#87cefa", fg="black").grid(row=0, column=0)
+        self.entry_first_name = tk.Entry(self.root)
         self.entry_first_name.grid(row=0, column=1)
-        tk.Label(root, text="Фамилия:").grid(row=1, column=0)
-        self.entry_last_name = tk.Entry(root)
+        tk.Label(self.root, text="Фамилия:", font=bold_font, bg="#87cefa", fg="black").grid(row=1, column=0)
+        self.entry_last_name = tk.Entry(self.root)
         self.entry_last_name.grid(row=1, column=1)
-        tk.Label(root, text="Отчество:").grid(row=2, column=0)
-        self.entry_patronymic = tk.Entry(root)
+        tk.Label(self.root, text="Отчество:", font=bold_font, bg="#87cefa", fg="black").grid(row=2, column=0)
+        self.entry_patronymic = tk.Entry(self.root)
         self.entry_patronymic.grid(row=2, column=1)
         self.detector = dlib.get_frontal_face_detector()
 
         # создаем кнопку для проверки введенных данных
-        tk.Button(root, text="Проверить данные", command=self.check_data).grid(row=3, column=0, columnspan=2)
+        tk.Button(self.root, text="Проверить данные", command=self.check_data, font=bold_font, bg="#87cefa", fg="black").grid(row=3, column=0, columnspan=2)
 
         self.entry_first_name.insert(0, fio[0])
         self.entry_last_name.insert(0, fio[1])
         self.entry_patronymic.insert(0, fio[2])
 
-        root.mainloop()
+        self.root.mainloop()
 
     # функция для открытия окна для редактирования данных
     def edit_window(self, data):
