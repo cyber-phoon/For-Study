@@ -44,35 +44,31 @@ class Edit_Windows():
     def edit_window(self, data):
         # создаем новое окно
         self.edit_win = tk.Toplevel()
+        self.edit_win.geometry('320x150')
         self.edit_win.title("Редактирование данных")
         bold_font = ("Tahoma", 10, "bold")
         self.edit_win.configure(bg="light blue")
-        # создаем поля для ввода новых данных
         tk.Label(self.edit_win, text="Имя:", font=bold_font, bg="#87cefa", fg="black").grid(row=0, column=0, sticky='e')
         self.entry_new_first_name = tk.Entry(self.edit_win)
         self.entry_new_first_name.grid(row=0, column=1, sticky='w')
-        tk.Label(self.edit_win, text="Фамилия:", font=bold_font, bg="#87cefa", fg="black").grid(row=1, column=0, sticky='e')
+
+        tk.Label(self.edit_win, text="Фамилия:", font=bold_font, bg="#87cefa", fg="black").grid(row=1, column=0,
+                                                                                                sticky='e')
         self.entry_new_last_name = tk.Entry(self.edit_win)
         self.entry_new_last_name.grid(row=1, column=1, sticky='w')
-        tk.Label(self.edit_win, text="Отчество:", font=bold_font, bg="#87cefa", fg="black").grid(row=2, column=0, sticky='e')
+
+        tk.Label(self.edit_win, text="Отчество:", font=bold_font, bg="#87cefa", fg="black").grid(row=2, column=0,
+                                                                                                 sticky='e')
         self.entry_new_patronymic = tk.Entry(self.edit_win)
         self.entry_new_patronymic.grid(row=2, column=1, sticky='w')
-        #tk.Label(edit_win, text="Фото:").grid(row=3, column=0)
-        #entry_new_photo = tk.Entry(edit_win, show='*')
-        #entry_new_photo.grid(row=3, column=1)
 
-        # заполняем поля текущими данными
-        self.entry_new_first_name.insert(0, data[1])
-        self.entry_new_last_name.insert(0, data[2])
-        self.entry_new_patronymic.insert(0, data[3])
-        #print(entry_new_first_name)
-        #print(entry_new_last_name)
-        #print(entry_new_patronymic)
-        # создаем кнопку для того чтобы сделать фотографию и сохранить
-        tk.Button(self.edit_win, text="Сделать фотографию", command=self.process_camera_photo, font=bold_font, bg="#87cefa", fg="black", width=23).grid()
-        tk.Button(self.edit_win, text="Изменить введенное ФИО", command=lambda: self.change_data(self.entry_first_name.get(), self.entry_last_name.get(), self.entry_patronymic.get(), self.entry_new_first_name.get(), self.entry_new_last_name.get(), self.entry_new_patronymic.get()), font=bold_font, bg="#87cefa", fg="black", width=23).grid()
-
-
+        tk.Button(self.edit_win, text="Сделать фотографию", command=self.process_camera_photo, font=bold_font,
+                  bg="#87cefa", fg="black", width=23).grid(row=3, column=0, columnspan=2)
+        tk.Button(self.edit_win, text="Изменить введенное ФИО",
+                  command=lambda: self.change_data(self.entry_first_name.get(), self.entry_last_name.get(),
+                                                   self.entry_patronymic.get(), self.entry_new_first_name.get(),
+                                                   self.entry_new_last_name.get(), self.entry_new_patronymic.get()),
+                  font=bold_font, bg="#87cefa", fg="black", width=23).grid(row=4, column=0, columnspan=2)
 
     # функция, которая обрабатывает фото с камеры
     def process_camera_photo(self):
