@@ -11,34 +11,46 @@ import codecs
 class Add_Persons_Window():
     def __init__(self):
         self.root = Tk()
-        self.root.geometry("319x158")
+        bold_font = ("Tahoma", 10, "bold")
+        self.root.configure(bg="light blue")
+        self.root.geometry("325x158")
         self.root.title('Форма добавления данных')
 
         # Создание меток и полей для ввода данных
-        Label(self.root, text='Имя:').grid(row=0, column=0, sticky=W)
+        Label(self.root, text='Имя:', font=bold_font, bg="#87cefa", fg="black").grid(row=0, column=0, sticky=W)
         self.first_name_entry = Entry(self.root)
         self.first_name_entry.grid(row=0, column=1)
 
-        Label(self.root, text='Фамилия:').grid(row=1, column=0, sticky=W)
+        Label(self.root, text='Фамилия:', font=bold_font, bg="#87cefa", fg="black").grid(row=1, column=0, sticky=W)
         self.last_name_entry = Entry(self.root)
         self.last_name_entry.grid(row=1, column=1)
 
-        Label(self.root, text='Отчество:').grid(row=2, column=0, sticky=W)
+        Label(self.root, text='Отчество:', font=bold_font, bg="#87cefa", fg="black").grid(row=2, column=0, sticky=W)
         self.patronymic_entry = Entry(self.root)
         self.patronymic_entry.grid(row=2, column=1)
 
         # Создание метки и кнопки для выбора файла с фотографией
-        Label(self.root, text='Фотография:').grid(row=3, column=0, sticky=W)
+        Label(self.root, text='Фотография:', font=bold_font, bg="#87cefa", fg="black").grid(row=3, column=0, sticky=W)
         self.face_photo_path = StringVar()
         self.face_photo_entry = Entry(self.root, textvariable=self.face_photo_path, state='readonly')
         self.face_photo_entry.grid(row=3, column=1)
 
-        face_photo_button = Button(self.root, text='Сделать фото', command=self.face_photo_button_clicked)
-        face_photo_button.grid(row=3, column=2)
+        self.face_photo_button = Button(self.root, text='Сделать фото', command=self.face_photo_button_clicked, font=bold_font, bg="#87cefa", fg="black")
+        self.face_photo_button.grid(row=3, column=2)
+        self.face_photo_button.bind("<Enter>", self.on_enter)
+        self.face_photo_button.bind("<Leave>", self.on_leave)
 
         # Создание кнопки "Добавить"
-        add_button = Button(self.root, text='Добавить', command=self.add_button_clicked)
-        add_button.grid(row=4, column=1)
+        self.add_button = Button(self.root, text='Добавить', command=self.add_button_clicked, font=bold_font, bg="#87cefa", fg="black")
+        self.add_button.grid(row=4, column=1)
+        self.add_button.bind("<Enter>", self.on_enter)
+        self.add_button.bind("<Leave>", self.on_leave)
+
+    def on_enter(self, event):
+        event.widget.config(bg="white", fg="#87cefa")
+
+    def on_leave(self, event):
+        event.widget.config(bg="#87cefa", fg="black")
 
     def face_photo_button_clicked(self):
         # Захват изображения с камеры
