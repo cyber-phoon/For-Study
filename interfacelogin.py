@@ -62,3 +62,6 @@ class LoginWindow():
             # Failed login
             messagebox.showinfo(title='Ошибка', message='Некорректное имя пользователя или пароль')
             print('Invalid username or password.')
+            # Clear the username and password fields
+            self.username_entry.delete(0, tk.END)
+            self.password_entry.delete(0, tk.END)
