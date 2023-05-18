@@ -20,8 +20,8 @@ class GuardWindow():
 
         self.button = tk.Button(self.master, text='Запуск', width=20, borderwidth=3, command=self.open_file)
         self.button.grid(row=2, column=1, padx=10, pady=10, sticky='se')
-        self.qweasd = tk.Button(self.master, text='Добавить запрос', width=20, borderwidth=3, command=self.guardGU)
-        self.qweasd.grid()
+        self.add_request = tk.Button(self.master, text='Добавить запрос', width=20, borderwidth=3, command=self.guardGU)
+        self.add_request.grid(row=2, column=0, padx=10, pady=10, sticky='se')
 
         self.clock_label = tk.Label(self.master, font=('Arial', 18), bg='white', fg='black')
         self.clock_label.grid(row=1, column=1, padx=10, pady=10, sticky='ne')
