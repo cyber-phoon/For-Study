@@ -120,8 +120,8 @@ class RequestGU():
     def update_fio(self, event=None):
         selected_action = self.action_combobox.get()
         if selected_action in ("Изменение ФИО", "Удаление пользователя", "Обновление фотографии"):
-            self.entry_fio_label.pack(side=BOTTOM)
-            self.fio_label.pack(side=BOTTOM)
+            self.fio_label.pack()
+            self.entry_fio_label.pack()
             self.show_button.pack()
         else:
             self.show_button.pack_forget()
