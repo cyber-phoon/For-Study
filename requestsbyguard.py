@@ -157,6 +157,7 @@ class RequestGU():
                             (request, action, fio, comment))
             self.conn.commit()
             tk.messagebox.showinfo("Успех", "Запрос успешно добавлен в базу данных!")
+            self.entry_fio_label.delete(0, tk.END)
             self.people_window.destroy()
             self.show_button.pack_forget()
             self.fio_label.pack_forget()
