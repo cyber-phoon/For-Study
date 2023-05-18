@@ -27,30 +27,32 @@ class RequestGU():
 
         # создаем окно tkinter
         self.root = tk.Tk()
+        self.root.configure(bg="light blue")
+        bold_font = ("Tahoma", 10, "bold")
         self.root.geometry('1500x500')
         self.root.title("Добавление запроса")
 
         # создаем метки и выпадающие списки для запроса и действия
-        request_label = tk.Label(self.root, text="Запрос:")
+        request_label = tk.Label(self.root, text="Запрос:", borderwidth=2, font=bold_font, bg="#87cefa")
         request_label.pack()
         self.request_var = tk.StringVar()
         self.request_combobox = ttk.Combobox(self.root, textvariable=self.request_var, values=self.valid_requests, state="readonly", width=42)
         self.request_combobox.pack()
         self.request_combobox.bind("<<ComboboxSelected>>", self.update_actions)
 
-        action_label = tk.Label(self.root, text="Действие:")
+        action_label = tk.Label(self.root, text="Действие:", borderwidth=2, font=bold_font, bg="#87cefa")
         action_label.pack()
         self.action_var = tk.StringVar()
         self.action_combobox = ttk.Combobox(self.root, textvariable=self.action_var, values=[], state="readonly", width=42)
         self.action_combobox.pack()
         self.action_combobox.bind("<<ComboboxSelected>>", self.update_fio)
 
-        comment_label = tk.Label(self.root, text="Комментарий:")
+        comment_label = tk.Label(self.root, text="Комментарий:", borderwidth=2, font=bold_font, bg="#87cefa")
         comment_label.pack()
         self.comment_entry = tk.Entry(self.root, width=30)
         self.comment_entry.pack()
 
-        self.fio_label = tk.Label(self.root, text="ФИО:")
+        self.fio_label = tk.Label(self.root, text="ФИО:", borderwidth=2, font=bold_font, bg="#87cefa")
         self.entry_fio_label = tk.Entry(self.root, width=30)
         self.fio_label.pack()
         self.entry_fio_label.pack()
@@ -58,11 +60,17 @@ class RequestGU():
         self.fio_label.pack_forget()
 
         # создаем кнопку для добавления запроса
-        self.add_button = tk.Button(self.root, text="Добавить", command=self.add_request, width=14)
+        self.add_button = tk.Button(self.root, text="Добавить", command=self.add_request, width=14, borderwidth=3,
+                                     font=bold_font, bg="#87cefa", fg="black")
+        self.add_button.bind("<Enter>", self.on_enter)
+        self.add_button.bind("<Leave>", self.on_leave)
         self.add_button.pack()
 
         # создаем кнопку для отображения людей
-        self.show_button = tk.Button(self.root, text="Показать людей", command=self.show_all_people, width=14)
+        self.show_button = tk.Button(self.root, text="Показать людей", width=20, borderwidth=3,
+                                     font=bold_font, bg="#87cefa", fg="black", command=self.show_all_people)
+        self.show_button.bind("<Enter>", self.on_enter)
+        self.show_button.bind("<Leave>", self.on_leave)
 
         # скрываем кнопку по умолчанию
         self.show_button.pack()
@@ -222,6 +230,14 @@ class RequestGU():
 
         # Закрываем соединение с базой данных
         self.conn.close()
+
+    def on_enter(self, event):
+        event.widget.config(bg="white", fg="#87cefa")
+
+    def on_leave(self, event):
+        event.widget.config(bg="#87cefa", fg="black")
+
+
 
     def populate_fio_entry(self, row, values, column):
         fio = " ".join(values)
