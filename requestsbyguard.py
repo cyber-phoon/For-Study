@@ -34,35 +34,35 @@ class RequestGU():
         request_label = tk.Label(self.root, text="Запрос:")
         request_label.pack()
         self.request_var = tk.StringVar()
-        self.request_combobox = ttk.Combobox(self.root, textvariable=self.request_var, values=self.valid_requests, state="readonly", width=40)
+        self.request_combobox = ttk.Combobox(self.root, textvariable=self.request_var, values=self.valid_requests, state="readonly", width=42)
         self.request_combobox.pack()
         self.request_combobox.bind("<<ComboboxSelected>>", self.update_actions)
 
         action_label = tk.Label(self.root, text="Действие:")
         action_label.pack()
         self.action_var = tk.StringVar()
-        self.action_combobox = ttk.Combobox(self.root, textvariable=self.action_var, values=[], state="readonly", width=30)
+        self.action_combobox = ttk.Combobox(self.root, textvariable=self.action_var, values=[], state="readonly", width=42)
         self.action_combobox.pack()
         self.action_combobox.bind("<<ComboboxSelected>>", self.update_fio)
 
         comment_label = tk.Label(self.root, text="Комментарий:")
         comment_label.pack()
-        self.comment_entry = tk.Entry(self.root, width=20)
+        self.comment_entry = tk.Entry(self.root, width=30)
         self.comment_entry.pack()
 
         self.fio_label = tk.Label(self.root, text="ФИО:")
-        self.entry_fio_label = tk.Entry(self.root)
+        self.entry_fio_label = tk.Entry(self.root, width=30)
         self.fio_label.pack()
         self.entry_fio_label.pack()
         self.entry_fio_label.pack_forget()
         self.fio_label.pack_forget()
 
         # создаем кнопку для добавления запроса
-        self.add_button = tk.Button(self.root, text="Добавить", command=self.add_request)
+        self.add_button = tk.Button(self.root, text="Добавить", command=self.add_request, width=14)
         self.add_button.pack()
 
         # создаем кнопку для отображения людей
-        self.show_button = tk.Button(self.root, text="Показать людей", command=self.show_all_people)
+        self.show_button = tk.Button(self.root, text="Показать людей", command=self.show_all_people, width=14)
 
         # скрываем кнопку по умолчанию
         self.show_button.pack()
