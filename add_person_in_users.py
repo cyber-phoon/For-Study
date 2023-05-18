@@ -6,53 +6,35 @@ import mysql.connector
 from tkinter import *
 from tkinter import filedialog
 from tkinter import messagebox
+from tkinter import ttk
 import codecs
 
-class Add_Persons_Window():
-    def __init__(self):
-        self.root = Tk()
-        bold_font = ("Tahoma", 10, "bold")
-        self.root.configure(bg="light blue")
-        self.root.geometry("325x158")
-        self.root.title('Форма добавления данных')
+def create_add_persons_widgets(parent_frame):
+    bold_font = ("Tahoma", 10, "bold")
+    frame = ttk.Frame(parent_frame)
+    #frame.configure(bg="light blue")
+    frame.pack()
 
-        # Создание меток и полей для ввода данных
-        Label(self.root, text='Имя:', font=bold_font, bg="#87cefa", fg="black").grid(row=0, column=0, sticky=W)
-        self.first_name_entry = Entry(self.root)
-        self.first_name_entry.grid(row=0, column=1)
+    # Создание меток и полей для ввода данных
+    Label(frame, text='Имя:', font=bold_font, bg="#87cefa", fg="black").grid(row=0, column=0, sticky=W)
+    first_name_entry = Entry(frame)
+    first_name_entry.grid(row=0, column=1)
 
-        Label(self.root, text='Фамилия:', font=bold_font, bg="#87cefa", fg="black").grid(row=1, column=0, sticky=W)
-        self.last_name_entry = Entry(self.root)
-        self.last_name_entry.grid(row=1, column=1)
+    Label(frame, text='Фамилия:', font=bold_font, bg="#87cefa", fg="black").grid(row=1, column=0, sticky=W)
+    last_name_entry = Entry(frame)
+    last_name_entry.grid(row=1, column=1)
 
-        Label(self.root, text='Отчество:', font=bold_font, bg="#87cefa", fg="black").grid(row=2, column=0, sticky=W)
-        self.patronymic_entry = Entry(self.root)
-        self.patronymic_entry.grid(row=2, column=1)
+    Label(frame, text='Отчество:', font=bold_font, bg="#87cefa", fg="black").grid(row=2, column=0, sticky=W)
+    patronymic_entry = Entry(frame)
+    patronymic_entry.grid(row=2, column=1)
 
-        # Создание метки и кнопки для выбора файла с фотографией
-        Label(self.root, text='Фотография:', font=bold_font, bg="#87cefa", fg="black").grid(row=3, column=0, sticky=W)
-        self.face_photo_path = StringVar()
-        self.face_photo_entry = Entry(self.root, textvariable=self.face_photo_path, state='readonly')
-        self.face_photo_entry.grid(row=3, column=1)
+    # Создание метки и кнопки для выбора файла с фотографией
+    Label(frame, text='Фотография:', font=bold_font, bg="#87cefa", fg="black").grid(row=3, column=0, sticky=W)
+    face_photo_path = StringVar()
+    face_photo_entry = Entry(frame, textvariable=face_photo_path, state='readonly')
+    face_photo_entry.grid(row=3, column=1)
 
-        self.face_photo_button = Button(self.root, text='Сделать фото', command=self.face_photo_button_clicked, font=bold_font, bg="#87cefa", fg="black")
-        self.face_photo_button.grid(row=3, column=2)
-        self.face_photo_button.bind("<Enter>", self.on_enter)
-        self.face_photo_button.bind("<Leave>", self.on_leave)
-
-        # Создание кнопки "Добавить"
-        self.add_button = Button(self.root, text='Добавить', command=self.add_button_clicked, font=bold_font, bg="#87cefa", fg="black")
-        self.add_button.grid(row=4, column=1)
-        self.add_button.bind("<Enter>", self.on_enter)
-        self.add_button.bind("<Leave>", self.on_leave)
-
-    def on_enter(self, event):
-        event.widget.config(bg="white", fg="#87cefa")
-
-    def on_leave(self, event):
-        event.widget.config(bg="#87cefa", fg="black")
-
-    def face_photo_button_clicked(self):
+    def face_photo_button_clicked():
         # Захват изображения с камеры
         cap = cv2.VideoCapture(0)
         ret, frame = cap.read()
@@ -62,7 +44,7 @@ class Add_Persons_Window():
         with tempfile.NamedTemporaryFile(suffix=".jpg", delete=False) as f:
             file_path = f.name
             cv2.imwrite(file_path, frame)
-            self.face_photo_path.set(file_path)
+            face_photo_path.set(file_path)
 
         # Отображение изображения в новом окне
         image = cv2.imread(file_path)
@@ -77,28 +59,31 @@ class Add_Persons_Window():
         cv2.waitKey(0)
         cv2.destroyAllWindows()
 
-    # Создание кнопки "Добавить"
-    def add_button_clicked(self):
-        if self.first_name_entry.get() and self.last_name_entry.get() and self.patronymic_entry.get() and self.face_photo_path.get():
+    face_photo_button = Button(frame, text='Сделать фото', command=face_photo_button_clicked, font=bold_font, bg="#87cefa", fg="black")
+    face_photo_button.grid(row=3, column=2)
+
+    def add_button_clicked():
+        if first_name_entry.get() and last_name_entry.get() and patronymic_entry.get() and face_photo_path.get():
             try:
                 connection = mysql.connector.connect(user='root', password='qw123', database='diploma')
                 cursor = connection.cursor()
                 query = "INSERT INTO People (first_name, last_name, patronymic, face_photo) VALUES (%s, %s, %s, %s)"
-                values = (self.first_name_entry.get(), self.last_name_entry.get(), self.patronymic_entry.get(), open(self.face_photo_path.get(), 'rb').read())
+                values = (first_name_entry.get(), last_name_entry.get(), patronymic_entry.get(), open(face_photo_path.get(), 'rb').read())
                 cursor.execute(query, values)
                 connection.commit()
                 cursor.close()
                 connection.close()
-                self.first_name_entry.delete(0, END)
-                self.last_name_entry.delete(0, END)
-                self.patronymic_entry.delete(0, END)
-                self.face_photo_path.set('')
+                first_name_entry.delete(0, END)
+                last_name_entry.delete(0, END)
+                patronymic_entry.delete(0, END)
+                face_photo_path.set('')
                 messagebox.showinfo("Успех", "Данные успешно добавлены в базу данных.")
-                self.root.destroy()
             except Exception as e:
                 messagebox.showerror("Ошибка")
         else:
             messagebox.showerror("Ошибка добавления данных", "Пожалуйста, заполните все поля.")
 
-    def run(self):
-        self.root.mainloop()
+    add_button = Button(frame, text='Добавить', command=add_button_clicked, font=bold_font, bg="#87cefa", fg="black")
+    add_button.grid(row=4, column=1)
+
+    return frame

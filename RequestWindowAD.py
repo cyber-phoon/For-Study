@@ -3,6 +3,7 @@ from tkinter import messagebox
 from tkinter import ttk
 import mysql.connector
 from edit_user import Edit_Windows
+import tkinter as tk
 
 class RequestWindowAD():
     def __init__(self):
@@ -31,15 +32,16 @@ class RequestWindowAD():
 
 
         self.treeview = ttk.Treeview(self.root)
-        self.treeview['columns'] = ('id', 'request','action','fio', 'comment', 'acceptance_status', 'completion_status')
-        self.treeview.heading('id', text='ID')
+        self.treeview['show'] = 'headings'
+        self.treeview['columns'] = ('request','action','fio', 'comment', 'acceptance_status', 'completion_status')
+        #self.treeview.heading('id', text='ID')
         self.treeview.heading('request', text='Запрос')
         self.treeview.heading('action', text='Действие')
         self.treeview.heading('fio', text='ФИО')
         self.treeview.heading('comment', text='Комментарий')
         self.treeview.heading('acceptance_status', text='Статус принятия')
         self.treeview.heading('completion_status', text='Статус завершения')
-        self.treeview.column('id', width=50)
+        #self.treeview.column('id', width=50)
         self.treeview.column('request', width=300)
         self.treeview.column('action', width=150)
         self.treeview.column('fio', width=300)
@@ -78,11 +80,15 @@ class RequestWindowAD():
 
     def load_data(self):
         self.treeview.delete(*self.treeview.get_children())
-        query = "SELECT id, request, action, fio, comment, acceptance_status, completion_status FROM requests"
+        query = "SELECT request, action, fio, comment, acceptance_status, completion_status FROM requests"
         self.cursor.execute(query)
         rows = self.cursor.fetchall()
         for row in rows:
-            self.treeview.insert("", "end", values=row)
+            item = list(row)
+            if item[4] == None: item[4] = 'На рассмотрении'
+            if item[5] == None: item[5] = 'На рассмотрении'
+            row = tuple(item)
+            self.treeview.insert("", tk.END, values=row)
 
 
 
@@ -91,7 +97,7 @@ class RequestWindowAD():
         self.selected_data = self.treeview.item(selected_item)["values"]  # Сохранение выбранных данных
         if self.selected_data:
             self.selected_id.set(self.selected_data[0])
-            fio = self.selected_data[3].split()  # Разделить ФИО на отдельные элементы
+            fio = self.selected_data[2].split()  # Разделить ФИО на отдельные элементы
             self.open_edit_window(fio)
         else:
             self.selected_id.set("")
@@ -110,6 +116,7 @@ class RequestWindowAD():
             self.update_data()
             self.completed_status.set('')
             self.acceptance_status.set('')
+
 
     def open_edit_window(self, fio):
         if self.edit_window is None:

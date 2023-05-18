@@ -80,6 +80,7 @@ class RequestGU():
         self.treeview = ttk.Treeview(self.root, columns=("request", "action", "fio", "comment", "acceptance_status", "completion_status"))
 
         # добавляем заголовки столбцов
+        self.treeview['show'] = 'headings'
         self.treeview.heading("request", text="Запрос")
         self.treeview.heading("action", text="Действие")
         self.treeview.heading("fio", text="ФИО")
@@ -92,8 +93,8 @@ class RequestGU():
         rows = self.cursor.fetchall()
         for row in rows:
             item = list(row)
-            if item[4] == None: item[4] = 'Передано на рассмотрение'
-            if item[5] == None: item[5] = 'Передано на рассмотрение'
+            if item[4] == None: item[4] = 'На рассмотрении'
+            if item[5] == None: item[5] = 'На рассмотрении'
             row = tuple(item)
             self.treeview.insert("", tk.END, values=row)
 
@@ -173,8 +174,8 @@ class RequestGU():
             rows = self.cursor.fetchall()
             for row in rows:
                 item = list(row)
-                if item[4] == None: item[4] = 'Передано на рассмотрение'
-                if item[5] == None: item[5] = 'Передано на рассмотрение'
+                if item[4] == None: item[4] = 'На рассмотрении'
+                if item[5] == None: item[5] = 'На рассмотрении'
                 row = tuple(item)
                 self.treeview.insert("", tk.END, values=row)
         else:

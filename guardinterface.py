@@ -5,6 +5,7 @@ import csv
 import subprocess
 from tkinter import simpledialog
 from requestsbyguard import RequestGU
+from engine import FaceRecognitionSystem
 
 
 class GuardWindow():
@@ -13,6 +14,7 @@ class GuardWindow():
         self.master = master
         self.master.title("Приложение")
         self.master.geometry('810x430')
+        self.master.minsize(810,430)
         self.db_work = db_work
         self.master.configure(bg="light blue")
         bold_font = ("Tahoma", 10, "bold")
@@ -54,7 +56,8 @@ class GuardWindow():
         event.widget.config(bg="#87cefa", fg="black")
 
     def open_file(self):
-        subprocess.Popen(['python', 'engine.py'])
+        face_recognition_system = FaceRecognitionSystem()
+        face_recognition_system.start_recognition()
 
     def update_clock(self):
         now = datetime.datetime.now()
