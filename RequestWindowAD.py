@@ -7,6 +7,8 @@ from edit_user import Edit_Windows
 class RequestWindowAD():
     def __init__(self):
         self.root = Tk()
+        bold_font = ("Tahoma", 10, "bold")
+        self.root.configure(bg="light blue")
         self.edit_window = None
         self.selected_fio = ""
         self.selected_data = None
@@ -14,15 +16,15 @@ class RequestWindowAD():
         self.root.geometry('1500x600')
         #self.root.resizable(False, False)
 
-        Label(self.root, text='Статус принятия:').grid(row=1, column=0, sticky=E)
+        Label(self.root, text='Статус принятия:', font=bold_font, bg="#87cefa", fg="black").grid(row=1, column=0, sticky=E)
         self.acceptance_status = ttk.Combobox(self.root, values=['В работе', 'Согласуется'], state="readonly")
         self.acceptance_status.grid(row=1, column=1, padx=10, pady=10, sticky=W)
 
-        Label(self.root, text='Статус завершения:').grid(row=2, column=0, sticky=E)
+        Label(self.root, text='Статус завершения:', font=bold_font, bg="#87cefa", fg="black").grid(row=2, column=0, sticky=E)
         self.completed_status = ttk.Combobox(self.root, values=['Выполнена', 'Завершена'], state="readonly")
         self.completed_status.grid(row=2, column=1, padx=10, pady=10, sticky=W)
 
-        add_button = Button(self.root, text='Добавить', command=lambda: self.add_acceptance_button_clicked())
+        add_button = Button(self.root, text='Добавить', command=lambda: self.add_acceptance_button_clicked(), font=bold_font, bg="#87cefa", fg="black", width=22)
         add_button.grid(row=3, column=0, columnspan=2, pady=10, sticky=N)
 
         self.treeview = ttk.Treeview(self.root)
