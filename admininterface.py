@@ -13,6 +13,8 @@ from RequestWindowAD import RequestWindowAD
 class AdminWindow():
     def __init__(self, master, db_work):
         self.master = master
+        bold_font = ("Tahoma", 10, "bold")
+        self.master.configure(bg="light blue")
         self.master.title("Администрирование")
         self.master.geometry('810x430')
         self.master.resizable(False, False)
@@ -20,23 +22,37 @@ class AdminWindow():
         # self.error_button = tk.Button(self.master, text="Просмотр ошибок")
         # self.error_button.pack(anchor="w")
 
-        self.photo_button = tk.Button(self.master, text="Создание учетной записи", command=self.add_photo, width=20)
+        self.photo_button = tk.Button(self.master, text="Создание учетной записи", command=self.add_photo, font=bold_font, bg="#87cefa", fg="black", width=22)
         self.photo_button.pack(anchor="w", pady=(100, 3))
+        self.photo_button.bind("<Enter>", self.on_enter)
+        self.photo_button.bind("<Leave>", self.on_leave)
 
-        self.add_person = tk.Button(self.master, text="Создание пропуска", command=self.create_person_window, width=20)
+        self.add_person = tk.Button(self.master, text="Создание пропуска", command=self.create_person_window, font=bold_font, bg="#87cefa", fg="black", width=22)
         self.add_person.pack(anchor="w", pady=3)
+        self.add_person.bind("<Enter>", self.on_enter)
+        self.add_person.bind("<Leave>", self.on_leave)
 
-        self.download = tk.Button(self.master, text="Отчет рабочего времени", command=self.download_window, width=20)
+        self.download = tk.Button(self.master, text="Отчет рабочего времени", command=self.download_window, font=bold_font, bg="#87cefa", fg="black", width=22)
         self.download.pack(anchor="w", pady=3)
+        self.download.bind("<Enter>", self.on_enter)
+        self.download.bind("<Leave>", self.on_leave)
 
         # self.download = tk.Button(self.master, text="Изменение данных", command=Edit_Windows)
         # self.download.pack(anchor="w")
 
-        self.show_all_button = tk.Button(self.master, text="Запросы", command=self.request_window, width=20)
+        self.show_all_button = tk.Button(self.master, text="Запросы", command=self.request_window, font=bold_font, bg="#87cefa", fg="black", width=22)
         self.show_all_button.pack(anchor="w", pady=3)
+        self.show_all_button.bind("<Enter>", self.on_enter)
+        self.show_all_button.bind("<Leave>", self.on_leave)
 
         # self.show_all_button = tk.Button(self.master, text="Показать пользователей")
         # self.show_all_button.pack(anchor="w")
+
+    def on_enter(self, event):
+        event.widget.config(bg="white", fg="#87cefa")
+
+    def on_leave(self, event):
+        event.widget.config(bg="#87cefa", fg="black")
 
     def add_photo(self):
         add_users = Users_Of_Program_Window()

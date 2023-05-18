@@ -8,6 +8,7 @@ from tkinter import messagebox
 class LoginWindow():
     def __init__(self, master, db_work):
         self.master = master
+        self.master.geometry('250x140')
         self.master.title("Авторизация")
         self.db_work = db_work
         self.master.configure(bg="light blue")
@@ -26,8 +27,7 @@ class LoginWindow():
         self.password_entry.pack()
 
         # Создание кнопки
-        self.login_button = tk.Button(self.master, text="Войти", command=self.login, font=("Tahoma", 10, "bold"),
-                                      relief="flat", bg="#87cefa", fg="black")
+        self.login_button = tk.Button(self.master, text="Войти", command=self.login, font=bold_font, bg="#87cefa", borderwidth=2)
         self.login_button.pack(pady=10)
         self.login_button.bind("<Enter>", self.on_enter)
         self.login_button.bind("<Leave>", self.on_leave)
