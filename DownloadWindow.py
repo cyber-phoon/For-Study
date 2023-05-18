@@ -12,29 +12,35 @@ import os
 class Download_Window():
     def __init__(self):
         self.root = Tk()
+        bold_font = ("Tahoma", 10, "bold")
+        self.root.configure(bg="light blue")
         self.root.title("Данные работника")
         self.root.geometry('319x120')
         self.root.resizable(False, False)
 
-        Label(self.root, text='Имя:').grid(row=0, column=0, sticky=W)
+        Label(self.root, text='Имя:', font=bold_font, bg="#87cefa", fg="black").grid(row=0, column=0, sticky=W)
         self.first_name = Entry(self.root)
         self.first_name.grid(row=0, column=1)
         self.first_name.config(width=18)
 
-        Label(self.root, text='Фамилия:').grid(row=1, column=0, sticky=W)
+        Label(self.root, text='Фамилия:', font=bold_font, bg="#87cefa", fg="black").grid(row=1, column=0, sticky=W)
         self.last_name = Entry(self.root)
         self.last_name.grid(row=1, column=1)
         self.last_name.config(width=18)
 
-        Label(self.root, text='Отчество:').grid(row=2, column=0, sticky=W)
+        Label(self.root, text='Отчество:', font=bold_font, bg="#87cefa", fg="black").grid(row=2, column=0, sticky=W)
         self.patronymic = Entry(self.root)
         self.patronymic.grid(row=2, column=1)
         self.patronymic.config(width=18)
 
-        add_button = Button(self.root, text='Скачать', command=self.download_button_clicked)
-        add_button.grid(row=3, column=1)
-        download_all = Button(self.root, text='Скачать все', command=self.are_you_sure)
-        download_all.grid(row=3, column=2)
+        self.add_button = Button(self.root, text='Скачать', command=self.download_button_clicked, font=bold_font, bg="#87cefa", fg="black")
+        self.add_button.grid(row=3, column=1)
+        self.add_button.bind("<Enter>", self.on_enter)
+        self.add_button.bind("<Leave>", self.on_leave)
+        self.download_all = Button(self.root, text='Скачать все', command=self.are_you_sure, font=bold_font, bg="#87cefa", fg="black")
+        self.download_all.grid(row=3, column=2)
+        self.download_all.bind("<Enter>", self.on_enter)
+        self.download_all.bind("<Leave>", self.on_leave)
 
         # Подключаемся к базе данных MySQL
         self.conn = mysql.connector.connect(
@@ -44,6 +50,12 @@ class Download_Window():
             database="diploma"
         )
         self.cursor = self.conn.cursor()
+
+    def on_enter(self, event):
+        event.widget.config(bg="white", fg="#87cefa")
+
+    def on_leave(self, event):
+        event.widget.config(bg="#87cefa", fg="black")
 
     def download_button_clicked(self):
         # Получаем данные из полей ввода
