@@ -11,19 +11,19 @@ class RequestWindowAD():
         self.selected_fio = ""
         self.selected_data = None
         self.root.title("Добавить запрос")
-        self.root.geometry('1300x600')
+        self.root.geometry('1500x600')
         #self.root.resizable(False, False)
 
-        Label(self.root, text='Статус принятия:').grid(row=1, column=0, sticky=W)
+        Label(self.root, text='Статус принятия:').grid(row=1, column=0, sticky=E)
         self.acceptance_status = ttk.Combobox(self.root, values=['В работе', 'Согласуется'], state="readonly")
-        self.acceptance_status.grid(row=1, column=1, padx=10, pady=10)
+        self.acceptance_status.grid(row=1, column=1, padx=10, pady=10, sticky=W)
 
-        Label(self.root, text='Статус завершения:').grid(row=2, column=0, sticky=W)
+        Label(self.root, text='Статус завершения:').grid(row=2, column=0, sticky=E)
         self.completed_status = ttk.Combobox(self.root, values=['Выполнена', 'Завершена'], state="readonly")
-        self.completed_status.grid(row=2, column=1, padx=10, pady=10)
+        self.completed_status.grid(row=2, column=1, padx=10, pady=10, sticky=W)
 
         add_button = Button(self.root, text='Добавить', command=lambda: self.add_acceptance_button_clicked())
-        add_button.grid(row=3, column=1)
+        add_button.grid(row=3, column=0, columnspan=2, pady=10, sticky=N)
 
         self.treeview = ttk.Treeview(self.root)
         self.treeview['columns'] = ('id', 'request','action','fio', 'comment', 'acceptance_status', 'completion_status')
@@ -36,9 +36,9 @@ class RequestWindowAD():
         self.treeview.heading('completion_status', text='Статус завершения')
         self.treeview.column('id', width=50)
         self.treeview.column('request', width=300)
-        self.treeview.column('action',width=150)
+        self.treeview.column('action', width=150)
         self.treeview.column('fio', width=300)
-        self.treeview.column('comment',width=150)
+        self.treeview.column('comment', width=150)
         self.treeview.column('acceptance_status', width=150)
         self.treeview.column('completion_status', width=150)
         self.treeview.grid(row=4, columnspan=2, padx=10, pady=10)
