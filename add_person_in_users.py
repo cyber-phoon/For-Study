@@ -59,8 +59,16 @@ def create_add_persons_widgets(parent_frame):
         cv2.waitKey(0)
         cv2.destroyAllWindows()
 
+    def on_enter(event):
+        event.widget.config(bg="white", fg="#87cefa")
+
+    def on_leave(event):
+        event.widget.config(bg="#87cefa", fg="black")
+
     face_photo_button = Button(frame, text='Сделать фото', command=face_photo_button_clicked, font=bold_font, bg="#87cefa", fg="black")
     face_photo_button.grid(row=3, column=2)
+    face_photo_button.bind("<Enter>", on_enter)
+    face_photo_button.bind("<Leave>", on_leave)
 
     def add_button_clicked():
         if first_name_entry.get() and last_name_entry.get() and patronymic_entry.get() and face_photo_path.get():
@@ -85,5 +93,7 @@ def create_add_persons_widgets(parent_frame):
 
     add_button = Button(frame, text='Добавить', command=add_button_clicked, font=bold_font, bg="#87cefa", fg="black")
     add_button.grid(row=4, column=1)
+    add_button.bind("<Enter>", on_enter)
+    add_button.bind("<Leave>", on_leave)
 
     return frame
