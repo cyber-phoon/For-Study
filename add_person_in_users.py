@@ -29,10 +29,10 @@ def create_add_persons_widgets(parent_frame):
     patronymic_entry.grid(row=2, column=1)
 
     # Создание метки и кнопки для выбора файла с фотографией
-    Label(frame, text='Фотография:', font=bold_font, bg="#87cefa", fg="black").grid(row=3, column=0, sticky=W)
+    Label(frame, text='Фотография:', font=bold_font, bg="#87cefa", fg="black").grid(row=3, column=0, sticky=N)
     face_photo_path = StringVar()
     face_photo_entry = Entry(frame, textvariable=face_photo_path, state='readonly')
-    face_photo_entry.grid(row=3, column=1)
+    face_photo_entry.grid(row=3, column=1, sticky=N)
 
     def face_photo_button_clicked():
         # Захват изображения с камеры
