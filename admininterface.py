@@ -20,21 +20,28 @@ class AdminWindow():
         self.notebook.pack(fill='both', expand=True)
 
         self.photo_frame = ttk.Frame(self.notebook)
+        self.photo_frame.configure(style="My.TFrame")
         self.notebook.add(self.photo_frame, text='Создание учетной записи')
 
         self.add_person_frame = ttk.Frame(self.notebook)
+        self.add_person_frame.configure(style="My.TFrame")
         self.notebook.add(self.add_person_frame, text='Создание пропуска')
 
         self.download_frame = ttk.Frame(self.notebook)
+        self.download_frame.configure(style="My.TFrame")
         self.notebook.add(self.download_frame, text='Отчет рабочего времени')
 
         self.request_frame = ttk.Frame(self.notebook)
+        self.request_frame.configure(style="My.TFrame")
         self.notebook.add(self.request_frame, text='Запросы')
 
         self.show_all_button = tk.Button(self.request_frame, text="Запросы", command=self.request_window, font=bold_font, bg="#87cefa", fg="black", width=22)
         self.show_all_button.pack(anchor="w", pady=3)
         self.show_all_button.bind("<Enter>", self.on_enter)
         self.show_all_button.bind("<Leave>", self.on_leave)
+
+        style = ttk.Style()
+        style.configure("My.TFrame", background="light blue")
 
         # Create the contents of the add_users_of_program file
         users_program_widgets = create_users_program_widgets(self.photo_frame)

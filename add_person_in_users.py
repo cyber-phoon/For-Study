@@ -11,8 +11,8 @@ import codecs
 
 def create_add_persons_widgets(parent_frame):
     bold_font = ("Tahoma", 10, "bold")
-    frame = ttk.Frame(parent_frame)
-    #frame.configure(bg="light blue")
+    frame = ttk.Frame(parent_frame, padding="10")
+    frame.configure(style="My.TFrame")
     frame.pack()
 
     # Создание меток и полей для ввода данных

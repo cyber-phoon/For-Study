@@ -10,15 +10,15 @@ def create_users_program_widgets(parent):
     frame.configure(style="My.TFrame")
 
     # Создание меток и полей для ввода данных
-    ttk.Label(frame, text='Логин:', font=bold_font).grid(row=0, column=0, sticky="w")
+    ttk.Label(frame, text='Логин:', font=bold_font, background="#87cefa", borderwidth=2).grid(row=0, column=0, sticky="w")
     username = ttk.Entry(frame, width=18)
     username.grid(row=0, column=1)
 
-    ttk.Label(frame, text='Пароль:', font=bold_font).grid(row=1, column=0, sticky="w")
+    ttk.Label(frame, text='Пароль:', font=bold_font, background="#87cefa", borderwidth=2).grid(row=1, column=0, sticky="w")
     password = ttk.Entry(frame, width=18, show="*")
     password.grid(row=1, column=1)
 
-    ttk.Label(frame, text='Роль:', font=bold_font).grid(row=2, column=0, sticky="w")
+    ttk.Label(frame, text='Роль:', font=bold_font, background="#87cefa", borderwidth=2).grid(row=2, column=0, sticky="w")
     roles = ["admin", "user"]
     role = ttk.Combobox(frame, values=roles, state='readonly', width=15)
     role.grid(row=2, column=1)

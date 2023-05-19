@@ -9,8 +9,10 @@ import openpyxl
 from openpyxl.utils.dataframe import dataframe_to_rows
 
 def create_download_window(parent):
-    download_frame = ttk.Frame(parent)
+    download_frame = ttk.Frame(parent, padding='10')
     download_frame.pack()
+    download_frame.configure(style="My.TFrame")
+
 
     bold_font = ("Tahoma", 10, "bold")
 
