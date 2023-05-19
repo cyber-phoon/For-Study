@@ -1,5 +1,6 @@
 import mysql.connector
 from tkinter import ttk
+import tkinter as tk
 from tkinter import messagebox
 import hashlib
 
@@ -46,7 +47,15 @@ def create_users_program_widgets(parent):
         else:
             messagebox.showerror("Ошибка добавления данных", "Пожалуйста, заполните все поля.")
 
-    add_button = ttk.Button(frame, text='Добавить', command=add_button_clicked)
+    def on_enter(event):
+        event.widget.config(bg="white", fg="#87cefa")
+
+    def on_leave(event):
+        event.widget.config(bg="#87cefa", fg="black")
+
+    add_button = tk.Button(frame, text='Добавить', command=add_button_clicked, font=bold_font, bg="#87cefa", fg="black")
     add_button.grid(row=3, column=1)
+    add_button.bind("<Enter>", on_enter)
+    add_button.bind("<Leave>", on_leave)
 
     return frame
