@@ -105,18 +105,16 @@ class RequestWindowAD():
     def add_acceptance_button_clicked(self):
         selected_item = self.treeview.selection()
         if selected_item:
-            row = selected_item[0]
-            request_id = self.treeview.item(row, 'values')[0]
+            request_id = self.treeview.item(selected_item, 'values')[0]
             accepted = self.acceptance_status.get()
             completed = self.completed_status.get()
-            query = "UPDATE requests SET acceptance_status = %s, completion_status = %s WHERE id = %s"
+            query = "UPDATE requests SET acceptance_status = %s, completion_status = %s WHERE request = %s"
             values = (accepted, completed, request_id)
             self.cursor.execute(query, values)
             self.conn.commit()
             self.update_data()
             self.completed_status.set('')
             self.acceptance_status.set('')
-
 
     def open_edit_window(self, fio):
         if self.edit_window is None:
