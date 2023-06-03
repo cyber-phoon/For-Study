@@ -4,7 +4,7 @@ from tkinter import ttk
 import mysql.connector
 from edit_user import Edit_Windows
 import tkinter as tk
-
+#1
 class RequestWindowAD():
     def __init__(self):
         self.root = Tk()
