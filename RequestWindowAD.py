@@ -14,7 +14,7 @@ class RequestWindowAD():
         self.selected_fio = ""
         self.selected_data = None
         self.root.title("Редактирование запроса")
-        self.root.geometry('1500x600')
+        self.root.geometry('1300x380')
         #self.root.resizable(False, False)
 
         Label(self.root, text='Статус принятия:', font=bold_font, bg="#87cefa", fg="black").grid(row=1, column=0, sticky=E)
@@ -33,15 +33,15 @@ class RequestWindowAD():
 
         self.treeview = ttk.Treeview(self.root)
         self.treeview['show'] = 'headings'
-        self.treeview['columns'] = ('request','action','fio', 'comment', 'acceptance_status', 'completion_status')
-        #self.treeview.heading('id', text='ID')
+        self.treeview['columns'] = ('id', 'request', 'action', 'fio', 'comment', 'acceptance_status', 'completion_status')
+        self.treeview.heading('id', text='Номер')
         self.treeview.heading('request', text='Запрос')
         self.treeview.heading('action', text='Действие')
         self.treeview.heading('fio', text='ФИО')
         self.treeview.heading('comment', text='Комментарий')
         self.treeview.heading('acceptance_status', text='Статус принятия')
         self.treeview.heading('completion_status', text='Статус завершения')
-        #self.treeview.column('id', width=50)
+        self.treeview.column('id', width=50)
         self.treeview.column('request', width=300)
         self.treeview.column('action', width=150)
         self.treeview.column('fio', width=300)
@@ -80,13 +80,15 @@ class RequestWindowAD():
 
     def load_data(self):
         self.treeview.delete(*self.treeview.get_children())
-        query = "SELECT request, action, fio, comment, acceptance_status, completion_status FROM requests"
+        query = "SELECT id, request, action, fio, comment, acceptance_status, completion_status FROM requests"
         self.cursor.execute(query)
         rows = self.cursor.fetchall()
         for row in rows:
             item = list(row)
-            if item[4] == None: item[4] = 'На рассмотрении'
             if item[5] == None: item[5] = 'На рассмотрении'
+            if item[6] == None: item[6] = 'На рассмотрении'
+            if item[5] == "": item[5] = 'На рассмотрении'
+            if item[6] == "": item[6] = 'На рассмотрении'
             row = tuple(item)
             self.treeview.insert("", tk.END, values=row)
 
@@ -97,7 +99,7 @@ class RequestWindowAD():
         self.selected_data = self.treeview.item(selected_item)["values"]  # Сохранение выбранных данных
         if self.selected_data:
             self.selected_id.set(self.selected_data[0])
-            fio = self.selected_data[2].split()  # Разделить ФИО на отдельные элементы
+            fio = self.selected_data[3].split()  # Разделить ФИО на отдельные элементы
             self.open_edit_window(fio)
         else:
             self.selected_id.set("")
@@ -108,7 +110,7 @@ class RequestWindowAD():
             request_id = self.treeview.item(selected_item, 'values')[0]
             accepted = self.acceptance_status.get()
             completed = self.completed_status.get()
-            query = "UPDATE requests SET acceptance_status = %s, completion_status = %s WHERE request = %s"
+            query = "UPDATE requests SET acceptance_status = %s, completion_status = %s WHERE id = %s"
             values = (accepted, completed, request_id)
             self.cursor.execute(query, values)
             self.conn.commit()
